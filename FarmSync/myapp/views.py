@@ -31,6 +31,8 @@ class iotDataView(APIView):
             user.save()
         
         iotdata = IotData.objects.create(
+            username = data.get('username'),
+            password = data.get('password'),
             temperature = data.get('temperature'),
             pHValue = data.get('pHValue'),
             turbidity = data.get('turbidity'),
