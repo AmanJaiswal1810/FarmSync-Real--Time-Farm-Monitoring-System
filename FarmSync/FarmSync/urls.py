@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from myapp.views import iotDataView
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/data/', iotDataView.as_view()),
     path('', include('myapp.urls'),)
 ]
+
+urlpatterns += staticfiles_urlpatterns()
