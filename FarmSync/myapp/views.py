@@ -15,6 +15,27 @@ from django.contrib.auth.models import auth
 def index(request):
     return render(request,'index.html')
 
+def login(request):
+    if request.method == 'POST':
+        Username = request.POST['username']
+        Password = request.POST['password']
+        user = auth.authenticate(username = Username, password = Password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request,"Invalid credentials/ User does not exists")
+            return redirect('login')
+    else:
+        return render(request, 'login.html')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+def home(request):
+    return redirect('/')
+
 class iotDataView(APIView):
     def get(self, request):
         data = IotData.objects.all()
