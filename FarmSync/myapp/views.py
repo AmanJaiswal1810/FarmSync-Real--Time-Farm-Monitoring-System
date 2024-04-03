@@ -41,16 +41,16 @@ class iotDataView(APIView):
         data = IotData.objects.all()
         serializer = IotDataSerializer(data, many = True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     def post(self, request):
         data = request.data
         username = data.get('username')
         password = data.get('password')
-        
+
         if not User.objects.filter(username = username).exists():
             user = User.objects.create_user(username=username, password=password)
             user.save()
-        
+
         iotdata = IotData.objects.create(
             username = data.get('username'),
             password = data.get('password'),
@@ -66,3 +66,10 @@ class iotDataView(APIView):
         )
         iotdata.save()
         return Response(data, status=status.HTTP_200_OK)
+
+    def options(self, request, *args, **kwargs):
+        response = JsonResponse({'message': 'CORS allowed'})
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        response['Access-Control-Allow-Headers'] = 'Content-Type'
+        return response
