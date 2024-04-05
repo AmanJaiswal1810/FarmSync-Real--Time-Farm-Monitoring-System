@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff; /* White background */
+  color: #3fbbc0; /* Text color */
+}
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 36px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#display {
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+.container {
+  border: 2px solid #3fbbc0;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container.darker {
+  background-color: #f2f2f2;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 40px;
+  width: 100%;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+
+input[type=text], input[type=submit] {
+  width: calc(100% - 22px);
+  padding: 12px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  background-color: #25D366; /* Light black color */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #128C7E; /* Darker shade on hover */
+}
+
+#username { /* This should make the username black */
+  color: #000;
+}
+
+</style>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<h1>{{room}}</h1>
+
+<div id="display"></div>
+
+<div class="container">
+  <form id="post-form">
+    {% csrf_token %}
+    <input type="hidden" name="username" id="username" value="{{username}}"/>
+    <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+    <input type="text" name="message" id="message" placeholder="Type your message here..." />
+    <input type="submit" value="Send">
+  </form>
+</div>
+
+<script>
+$(document).ready(function(){
+  setInterval(function(){
+    $.ajax({
+      type: 'GET',
+      url: "/getMessages/{{room}}/",
+      success: function(response){
+        $("#display").empty();
+        for (var key in response.messages) {
+          var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b><p>" + response.messages[key].value + "</p><span class='time-left'>" + response.messages[key].date + "</span></div>";
+          $("#display").append(temp);
+        }
+      },
+      error: function(response){
+        alert('An error occurred');
+      }
+    });
+  }, 1000);
+});
+
+$(document).on('submit', '#post-form', function(e){
+  e.preventDefault();
+  $.ajax({
+    type: 'POST',
+    url: '/send',
+    data: {
+      username: $('#username').val(),
+      room_id: $('#room_id').val(),
+      message: $('#message').val(),
+      csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+    },
+    success: function(data){
+      //alert(data)
+    }
+  });
+  document.getElementById('message').value = '';
+});
+</script>
+
+</body>
+</html>

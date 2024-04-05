@@ -16,3 +16,16 @@ class IotData(models.Model):
     potassium = models.FloatField()
     created_at = models.DateTimeField(auto_now_add = True)
     
+class Room(models.Model):
+    name = models.CharField(max_length=1000)
+
+class Message(models.Model):
+    value = models.CharField(max_length=10000000)
+    date = models.DateTimeField(default = datetime.now, blank = True)
+    user = models.CharField(max_length=100)
+    room = models.CharField(max_length=1000)
+
+class post(models.Model):
+    title = models.CharField(max_length=1000)
+    body = models.CharField(max_length= 100000000)
+    

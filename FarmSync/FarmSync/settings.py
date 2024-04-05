@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xm#*@13aw(r9iytr46l42qowr@iz8alf&7mvv^tjgtd*&f-251
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['FarmSync.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition

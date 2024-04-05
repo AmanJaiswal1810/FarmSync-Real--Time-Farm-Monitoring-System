@@ -670,6 +670,13 @@ section {
   border-radius: 8px;
   z-index: 1;
 }
+.portfolio .portfolio-wrap video {
+  transition: 20s;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  z-index: 10;
+}
 
 .portfolio .portfolio-wrap::before {
   content: "";

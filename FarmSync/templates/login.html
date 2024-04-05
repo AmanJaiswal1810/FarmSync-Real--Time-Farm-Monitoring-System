@@ -1,0 +1,31 @@
+{% load static %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login Here!</title>
+    <link href="{% static 'assets/css/login.css' %}" rel="stylesheet">
+
+  </head>
+    <body>
+
+    <form class="box" action="login" method='POST'>
+    {% csrf_token %}
+    <h1>Login</h1>
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" name="Login" value="Login">
+    </form>
+    <br>
+    <br>
+    {% for  message in messages  %}
+    <h3 style="text-align:center; color:red">{{message}}</h3>
+    {% endfor %}
+
+
+  </body>
+</html>

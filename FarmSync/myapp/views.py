@@ -10,6 +10,8 @@ from django.forms import ValidationError
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.models import auth
+from .models import *
+from .models import Room
 # Create your views here.
 
 def index(request):
@@ -73,3 +75,41 @@ class iotDataView(APIView):
         response['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
         response['Access-Control-Allow-Headers'] = 'Content-Type'
         return response
+
+
+def checkview(request, username):
+    room = 'GroupChat'
+    return redirect('/'+room+'/?username='+username)
+
+def room(request, room):
+    username = request.GET.get('username')
+    room_details = Room.objects.get(name= room)
+    return render(request, 'room.html', {
+        'username' : username,
+        'room' : room,
+        'room_details' : room_details
+    })
+
+def send(request):
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+    message = request.POST['message']
+    new_message = Message.objects.create(value = message, user = username, room = room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+    
+def getMessages(request, room):
+    room_details = Room.objects.get(name = room)
+    messages = Message.objects.filter(room = room_details.id)
+    return JsonResponse({'messages':list(messages.values())})
+
+def blogs(request):
+    Posts = post.objects.all()
+    return render(request, 'blogs.html', {'Post':Posts})
+
+def Posts(request, postk):
+    Post = post.objects.get(id = postk)
+    return render(request, 'Posts.html', {'Posts' : Post})
+
+def result(request, username):
+    return render(request, 'result.html', {'username': username})

@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import IotData
+from .models import *
 # Register your models here.
 
 admin.site.register(IotData)
+admin.site.register(Room)
+admin.site.register(Message)
+admin.site.register(post)
