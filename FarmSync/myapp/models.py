@@ -15,6 +15,9 @@ class IotData(models.Model):
     phosphorous = models.FloatField()
     potassium = models.FloatField()
     created_at = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self) :
+        return self.username
     
 class Room(models.Model):
     name = models.CharField(max_length=1000)
