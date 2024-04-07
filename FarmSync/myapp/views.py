@@ -113,3 +113,6 @@ def Posts(request, postk):
 
 def result(request, username):
     return render(request, 'result.html', {'username': username})
+
+def soilresult(request, username):
+    return render(request, 'dashboard2.html', {'username' : username})

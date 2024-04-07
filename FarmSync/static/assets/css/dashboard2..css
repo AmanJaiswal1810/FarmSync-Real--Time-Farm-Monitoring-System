@@ -1,0 +1,220 @@
+
+body{
+   margin:0;
+   padding: 0;
+   background-color: #1d2534;
+   color: #9e9ea4;
+   font-family: "Montserrat", sans-serif;
+}
+.material-icons-outlined{
+    vertical-align: middle;
+    line-height: 1px;
+    font-size: 35px;
+
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 268px 1fr 1fr 1fr;
+    grid-template-rows: 0.2fr 3fr;
+    grid-template-areas: 
+    "sidebar header header header"
+    "sidebar main main main";
+    height:100vh;
+}
+/* Header */
+.header{
+    grid-area: header;
+    height: 70px;
+    /* background-color: royalblue; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between ;
+    padding: 0 30px 0 30px;
+    box-shadow: 0 6px 7px -3px rgba(0,0,0,0.35);
+     
+}
+
+/* Sidebar */
+#sidebar{
+    grid-area: sidebar;
+    height: 100%;
+    background-color: #263043;
+    overflow-y: auto;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+.sidebar-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 30px 30px 30px;
+    margin-bottom: 30px;
+}
+.sidebar-title > span{
+    display: none;
+}
+.sidebar-brand{
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.sidebar-list{
+    padding: 0;
+    margin-top: 15px;
+    list-style-type: none;
+}
+.sidebar-list-item{
+    display: flex;
+    align-items: center;
+    padding: 20px 20px 20px 20px;
+    font-size: 18px;
+}
+.sidebar-list-item:hover{
+    background-color: rgba(255,255,255,0.2);
+    cursor: pointer;
+}
+.sidebar-list-item .material-symbols-outlined {
+    margin-right: 8px; /* Adjust as needed */
+}
+.sidebar-responsive{
+    display: inline;
+    position: absolute;
+    z-index: 12;
+}
+/* Main */
+.main-container{
+    grid-area: main;
+    /* background-color: beige; */
+    overflow-y: auto;
+    padding: 20px 20px;
+    color: rdba(255,255,255,0.95);
+}
+.main-title{
+    display: flex;
+    justify-content: space-between;
+}
+.main-cards{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 25px;
+    border-radius: 5px;
+    background-color: #2962ff;
+}
+.card-inner{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-inner > .material-symbols-outlined{
+    font-size: 45px;
+
+}
+
+.charts{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 60px;
+
+}
+.charts-card{
+    background-color: #263043;
+    margin-bottom: 20px;
+    padding: 25px;
+    box-sizing: border-box;
+    -webkit-column-break-inside: avoid;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px -4px rgba(0,0,0,0.2);
+}
+.chart-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.lineChart{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 60px;
+
+}
+.lineChart-card{
+    background-color: #263043;
+    margin-bottom: 20px;
+    padding: 25px;
+    box-sizing: border-box;
+    -webkit-column-break-inside: avoid;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px -4px rgba(0,0,0,0.2);
+}
+.lineChart-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+@media screen and(max-width :992px){
+    .grid-container{
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.2fr 3fr;
+        grid-template-areas: 
+        "header"
+        "main"
+        ;
+    }
+    #sidebar{
+        display: none;
+    }
+    .menu-icon{
+        display: inline;
+    }
+    .sidebar-title >span{
+        display: inline;
+    }
+}
+@media screen and (max-width:768px){
+     .main-cards{
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 0;
+     }
+     .charts,
+    .lineChart {
+        grid-template-columns: 1fr; /* Change to a single column layout */
+        gap: 10px; /* Reduce the gap between elements for better spacing on smaller screens */
+    }
+
+    .charts-card,
+    .lineChart-card {
+        padding: 15px; /* Reduce padding for smaller screens */
+    }
+
+    #myChart,
+    #moistureChart,
+    #Water {
+        max-width: 100%; /* Make the charts responsive by setting maximum width to 100% */
+        height: auto; /* Allow the height to adjust proportionally */
+    }
+}
+/* For screens smaller than 768px (typical mobile devices) */
+
+
+@media screen and (max-width :576px){
+    
+
+}
+
+
+
+

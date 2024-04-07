@@ -56,6 +56,7 @@
           <li><a class="nav-link scrollto" href="#about">About Us</a></li>
           {% if user.is_authenticated %}
           <li><a class="nav-link scrollto" href="/chatbot/chat/{{user.username}}">AI Solutions</a></li>
+          <li><a class="nav-link scrollto" href="/chatbot/analysis/{{user.username}}">AI Analysis</a></li>
           {% else %}
           <li><a class="nav-link scrollto" href="/login">AI Solutions</a></li>
           {% endif %}
@@ -63,7 +64,7 @@
           {% if user.is_authenticated %}
           <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Soil Monitoring</a></li>
+              <li><a href="soilresult/{{user.username}}/">Soil Monitoring</a></li>
               <li><a href="result/{{user.username}}/">Water Monitoring</a></li>
             </ul>
           </li>

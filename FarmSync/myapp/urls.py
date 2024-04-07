@@ -12,4 +12,5 @@ urlpatterns = [
     path('blogs', views.blogs, name='blogs'),
     path('Posts/<str:postk>', views.Posts, name='Posts'),
     path('result/<str:username>/', views.result, name='result'),
+    path('soilresult/<str:username>/', views.soilresult, name ='soilresult'),
 ]
