@@ -21,7 +21,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/data/', iotDataView.as_view()),
-    path('', include('myapp.urls'),)
+    path('', include('myapp.urls'),),
+    path('chatbot/', include('chatbot.urls'),),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
