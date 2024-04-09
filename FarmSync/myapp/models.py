@@ -14,6 +14,8 @@ class IotData(models.Model):
     nitrogen = models.FloatField()
     phosphorous = models.FloatField()
     potassium = models.FloatField()
+    unique_id = models.IntegerField(default='-1')
+    location = models.CharField(max_length=100000, default='please enter location')
     created_at = models.DateTimeField(auto_now_add = True)
 
     def __str__(self) :
@@ -31,4 +33,14 @@ class Message(models.Model):
 class post(models.Model):
     title = models.CharField(max_length=1000)
     body = models.CharField(max_length= 100000000)
+
+class ContactFormSubmission(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.subject
     

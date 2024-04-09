@@ -13,4 +13,5 @@ urlpatterns = [
     path('Posts/<str:postk>', views.Posts, name='Posts'),
     path('result/<str:username>/', views.result, name='result'),
     path('soilresult/<str:username>/', views.soilresult, name ='soilresult'),
+    path('SendEmail', views.SendEmail, name='SendEmail'),
 ]

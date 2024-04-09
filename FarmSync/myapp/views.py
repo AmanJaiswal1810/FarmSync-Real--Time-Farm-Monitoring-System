@@ -64,7 +64,9 @@ class iotDataView(APIView):
             moisture_sensor = data.get('moisture_sensor'),
             nitrogen = data.get('nitrogen'),
             phosphorous = data.get('phosphorous'),
-            potassium = data.get('potassium')
+            potassium = data.get('potassium'),
+            location = data.get('location'),
+            unique_id = data.get('unique_id')
         )
         iotdata.save()
         return Response(data, status=status.HTTP_200_OK)
@@ -116,3 +118,24 @@ def result(request, username):
 
 def soilresult(request, username):
     return render(request, 'dashboard2.html', {'username' : username})
+
+def SendEmail(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        # Save form submission to the database
+        submission = ContactFormSubmission.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+
+        # Optionally, send confirmation email, process data, etc.
+
+        return JsonResponse({'message': 'success'})
+    else:
+        return JsonResponse({'message': 'error'})
