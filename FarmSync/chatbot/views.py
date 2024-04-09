@@ -131,7 +131,7 @@ import openai
 from myapp.models import *
 
 
-openai_api_key = "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"
+openai_api_key = "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"
 openai.api_key = openai_api_key
 
 
@@ -164,7 +164,7 @@ def ask_openai(message, data, username):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "system", "content": prompt}],
-            max_tokens=150,
+            max_tokens=3000,
             temperature=0.7
         )
         logger.info(f"OpenAI Response: {response}")

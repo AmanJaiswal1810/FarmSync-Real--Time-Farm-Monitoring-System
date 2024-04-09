@@ -5,7 +5,7 @@
     font-family:  Georgia, 'Times New Roman', Times, serif;
 }
 :root{
-    --blue:rgb(5, 161, 145);
+    --blue:#ef7f4d;
     --white:#fff;
     --grey:#f5f5f5;
     --black1:#222;
@@ -389,6 +389,11 @@ body{
     .status .inprogress{
         white-space: nowrap;
 
+    }
+    #myChart,
+    #lineChart {
+        max-width: 100%; /* Make the charts responsive by setting maximum width to 100% */
+        height: auto; /* Allow the height to adjust proportionally */
     }
 }
 @media (max-width:480px){

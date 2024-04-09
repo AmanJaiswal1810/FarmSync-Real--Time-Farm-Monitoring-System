@@ -2,8 +2,8 @@
 body{
    margin:0;
    padding: 0;
-   background-color: #1d2534;
-   color: #9e9ea4;
+   background-color: white;
+   color: #ef7f4d;
    font-family: "Montserrat", sans-serif;
 }
 .material-icons-outlined{
@@ -39,7 +39,8 @@ body{
 #sidebar{
     grid-area: sidebar;
     height: 100%;
-    background-color: #263043;
+    background-color: #ef7f4d;
+    color: wheat;
     overflow-y: auto;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -71,7 +72,7 @@ body{
     font-size: 18px;
 }
 .sidebar-list-item:hover{
-    background-color: rgba(255,255,255,0.2);
+    background-color: wheat;
     cursor: pointer;
 }
 .sidebar-list-item .material-symbols-outlined {
@@ -106,7 +107,7 @@ body{
     justify-content: space-around;
     padding: 25px;
     border-radius: 5px;
-    background-color: #2962ff;
+    background-color: wheat;
 }
 .card-inner{
     display: grid;
@@ -128,7 +129,7 @@ body{
 
 }
 .charts-card{
-    background-color: #263043;
+    background-color: wheat;
     margin-bottom: 20px;
     padding: 25px;
     box-sizing: border-box;
@@ -150,7 +151,7 @@ body{
 
 }
 .lineChart-card{
-    background-color: #263043;
+    background-color: wheat;
     margin-bottom: 20px;
     padding: 25px;
     box-sizing: border-box;
