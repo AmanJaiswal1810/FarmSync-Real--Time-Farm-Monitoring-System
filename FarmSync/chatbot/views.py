@@ -131,7 +131,7 @@ import openai
 from myapp.models import *
 
 
-openai_api_key = "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"
+openai_api_key = "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"
 openai.api_key = openai_api_key
 
 

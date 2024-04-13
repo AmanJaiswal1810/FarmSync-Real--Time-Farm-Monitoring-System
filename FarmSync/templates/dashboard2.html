@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="{% static 'assets/css/style2.css' %}" rel="stylesheet">
+    {% comment %} <link href="{% static 'assets/css/style3.css' %}" rel="stylesheet"> {% endcomment %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -48,6 +49,25 @@
         <main class="main-container">
             <div class="main-title">
                 <h2>Dashboard</h2>
+            </div>
+            <div class="form">
+                <div class="form-card">
+                    <h2 class="form-title"></h2>
+                    <div id="input">
+                        <form id="farmIdForm" class="farmid-form">
+                            <h2>Enter Farm ID:</h2>
+                            <label for="farmId">Farm ID:</label>
+                            <input type="text" id="farmId" name="farmId" placeholder="Enter Farm ID" required>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="alerts">
+                <div class="alerts-card">
+                    <h2 class="alerts-title">Alerts:</h2>
+                    <div id="alert"></div>
+                </div>
             </div>
             <div class="main-cards">
                 <div class="card" id="nitrogenCard">
@@ -101,6 +121,7 @@
                     <h2 class="chart-title"></h2>
                     <canvas id="myChart"></canvas>
                 </div>
+                
             </div>
             <div class="lineChart">
                 <div class="lineChart-card">
@@ -123,5 +144,8 @@
         const username = "{{username}}";
     </script>
     <script src="{%static 'assets/js/dashboard2.js' %}"></script>
+    <script src="{%static 'assets/js/.script.js' %}"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src = "{% static 'assets/js/translate.js' %}"></script>
 </body>
 </html>

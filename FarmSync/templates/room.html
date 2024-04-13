@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,12 +97,12 @@ input[type=submit]:hover {
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 <body>
-
+ 
 <h1>{{room}}</h1>
-
 <div id="display"></div>
 
 <div class="container">
+  
   <form id="post-form">
     {% csrf_token %}
     <input type="hidden" name="username" id="username" value="{{username}}"/>
@@ -110,6 +111,7 @@ input[type=submit]:hover {
     <input type="submit" value="Send">
   </form>
 </div>
+
 
 <script>
 $(document).ready(function(){
@@ -151,4 +153,6 @@ $(document).on('submit', '#post-form', function(e){
 </script>
 
 </body>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src ='assets/js/translate.js'></script>
 </html>

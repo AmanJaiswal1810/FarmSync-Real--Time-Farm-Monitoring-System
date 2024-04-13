@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block styles %}
 <style>
     body, html {
@@ -68,6 +68,7 @@
 <div class="chat-container">
   <div class="card flex-grow-1">
     <div class="card-header bg-primary text-white">FarmSync AI Solutions</div>
+    <div id='google_translate_element'>Translate</div>
     <div class="card-body messages-box">
       
       <ul class="list-unstyled messages-list">
@@ -95,6 +96,9 @@
       <input type="text" class="form-control message-input" placeholder="Type your message...">
       <div class="input-group-append">
         <button type="submit" class="btn btn-primary btn-send">Send</button>
+        <input onclick=’responsiveVoice.speak(“Hello World”);’ type=’button’ value=’🔊 Play’ />
+
+        
       </div>
     </div>
   </form>
@@ -143,7 +147,7 @@
         messageItem.innerHTML = `
         <div class="message-text">
             <div class="message-sender">
-              <b>AI Chatbot</b>
+              <b>FarmSync AI</b>
             </div>
             <div class="message-content">
                 ${response}
@@ -151,11 +155,14 @@
         </div>
           `;
         messagesList.appendChild(messageItem);
+        responsiveVoice.speak(response, 'Hindi Female');
       });
   });
 
 </script>
 
-
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src = "{% static 'assets/js/translate.js' %}"></script>
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=kQTP8Lh6"></script>
 
 {% endblock %}

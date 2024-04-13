@@ -41,7 +41,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-center">
+  <header id="header" class="fixed-top d-flex align-items-center my-4">
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
@@ -71,6 +71,9 @@
             <ul>
               <li><a href="soilresult/{{user.username}}/">Soil Monitoring</a></li>
               <li><a href="result/{{user.username}}/">Water Monitoring</a></li>
+              <li><a href="analysis">Analysis</a></li>
+              <li><a href="npk">NPK Calculator</a></li>
+              <li><a href="cropdata/{{user.username}}">Crop Analysis</a></li>
             </ul>
           </li>
           {% else %}
@@ -701,7 +704,7 @@
               <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
             </ul>
           </div> -->
-
+          <div id='google_translate_element'>Translate</div>
           <div class="col-lg-3 col-md-6 mb-4 footer-links" style="position: absolute; right: 10px;">
             <h4>Our Social Networks</h4>
             <p>For More Updates Follow Us On</p>
@@ -746,5 +749,6 @@
   <script src="{% static 'assets/js/main.js' %}"></script>
 
 </body>
-
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src = "{% static 'assets/js/translate.js' %}"></script>
 </html>

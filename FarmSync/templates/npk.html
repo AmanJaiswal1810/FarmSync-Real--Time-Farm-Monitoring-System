@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPK Fertilizer Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color : #fef8f5;
+  }
+  .container {
+    background-color : white;
+    max-width: 400px;
+    margin: 180px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+  }
+  h2{
+    color : orange;
+    text-align : center
+  }
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: orange;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px
+  }
+  button:hover {
+    background-color: #E9B669;
+  }
+  #result {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div id='google_translate_element'>Translate</div>
+  <h2>NPK Fertilizer Calculator</h2>
+  <label for="nitrogen">Nitrogen (mg/kg)</label>
+  <input type="number" id="nitrogen" step="0.01" min="0" required>
+  
+  <label for="phosphorus">Phosphorus (mg/kg)</label>
+  <input type="number" id="phosphorus" step="0.01" min="0" required>
+  
+  <label for="potassium">Potassium (mg/kg)</label>
+  <input type="number" id="potassium" step="0.01" min="0" required>
+  
+  <label for="recommendation">Recommendation</label>
+  <select id="recommendation">
+    <option value="acre">Pounds per acre</option>
+    <option value="sqft">Pounds per 1000 square feet</option>
+  </select>
+  
+  <button onclick="calculate()">Calculate</button>
+  
+  <div id="result"></div>
+</div>
+
+<script>
+function calculate() {
+  var nitrogen_mg_kg = parseFloat(document.getElementById('nitrogen').value);
+  var phosphorus_mg_kg = parseFloat(document.getElementById('phosphorus').value);
+  var potassium_mg_kg = parseFloat(document.getElementById('potassium').value);
+  var recommendation = document.getElementById('recommendation').value;
+  
+  // Convert mg/kg to percentage (divide by 10000)
+  var nitrogen = nitrogen_mg_kg / 10000;
+  var phosphorus = phosphorus_mg_kg / 10000;
+  var potassium = potassium_mg_kg / 10000;
+  
+  var total = nitrogen + phosphorus + potassium;
+  
+  var result = document.getElementById('result');
+  
+  if (total === 0) {
+    result.innerHTML = "Please enter valid values for Nitrogen, Phosphorus, and Potassium.";
+  } else {
+    var npkRatio = [nitrogen / total, phosphorus / total, potassium / total];
+    
+    var area = 0;
+    var unit = "";
+    if (recommendation === "acre") {
+      area = 1; // 1 acre
+      unit = "pounds per acre";
+    } else if (recommendation === "sqft") {
+      area = 1000; // 1000 square feet
+      unit = "pounds per 1000 square feet";
+    }
+    
+    var weights = npkRatio.map(function(ratio) {
+      return Math.round(ratio * area * 100) / 100; // Round to two decimal places
+    });
+    
+    result.innerHTML = "N: " + weights[0] + " " + unit + "<br>" +
+                       "P2O5: " + weights[1] + " " + unit + "<br>" +
+                       "K2O: " + weights[2] + " " + unit;
+  }
+}
+</script>
+
+</body>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</html>

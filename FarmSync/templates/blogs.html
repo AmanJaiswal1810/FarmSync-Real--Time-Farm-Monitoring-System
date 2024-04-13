@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +50,7 @@ body {
 <div class="header">
   <h2>FarmSync Blogs</h2>
 </div>
-
+<div id='google_translate_element'>Translate</div>
 <div class="container">
   <!-- No cards here -->
 
@@ -72,4 +72,7 @@ body {
 </div>
 
 </body>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src = "{% static 'assets/js/translate.js' %}"></script>
 </html>

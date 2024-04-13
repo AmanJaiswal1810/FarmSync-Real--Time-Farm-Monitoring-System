@@ -199,6 +199,16 @@ body{
     height: 100%;
     object-fit: cover;
 }
+.alert{
+    height: 20vh;
+    width: 96.5%;
+    background: var(--white);
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+    padding: 30px;
+    border-radius: 20px;
+    margin-left: 20px;
+    margin-right: 2px;
+}
 
 .cardBox{
     position: relative;
@@ -426,3 +436,5 @@ body{
         color: #fff;
     }
 }
+
+

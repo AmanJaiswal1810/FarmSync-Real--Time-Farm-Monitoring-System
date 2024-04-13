@@ -1,38 +1,184 @@
-   
 
 
-    function fetchLatestDataAndUpdate(endpoint, username, parameter, elementId) {
-        fetch(endpoint)
-            .then(response => response.json())
-            .then(data => {
-                // Filter data based on the username
-                const userData = data.filter(entry => entry.username === username);
-                // Assuming the filtered data array is not empty
-                if (userData.length > 0) {
-                    // Get the latest object from the filtered array
-                    const latestData = userData[userData.length - 1];
-                    // Get the value of the specified parameter from the latest object
-                    const value = latestData[parameter];
-                    // Update the content of the element with the specified ID
-                    document.getElementById(elementId).textContent = value;
-                } else {
-                    console.error('No data available for the specified username:', username);
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+
+// function fetchLatestDataAndUpdate(endpoint, username, parameter, elementId) {
+//         fetch(endpoint)
+//             .then(response => response.json())
+//             .then(data => {
+//                 // Filter data based on the username
+//                 const userData = data.filter(entry => entry.username === username);
+//                 // Assuming the filtered data array is not empty
+//                 if (userData.length > 0) {
+//                     // Get the latest object from the filtered array
+//                     const latestData = userData[userData.length - 1];
+//                     // Get the value of the specified parameter from the latest object
+//                     const value = latestData[parameter];
+//                     // Update the content of the element with the specified ID
+//                     document.getElementById(elementId).textContent = value;
+//                 } else {
+//                     console.error('No data available for the specified username:', username);
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching data:', error);
+//             });
+//     }
+    
+//     // Call the function for each parameter
+//     // Assuming you have set the username variable in your HTML
+//     fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'pHValue', 'phValue');
+//     fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'turbidity', 'turbidityValue');
+//     fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'temperature', 'temperatureValue');
+//     fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'dissolved_oxygen', 'oxygenValue'); // Assuming dissolved oxygen is represented by 'dissolved_oxygen' in your API
+    
+//     const idealRanges = {
+//         pH: { min: 6.5, max: 7.5 },
+//         temperature: { min: 18, max: 28 },
+//         turbidity: { min: 0, max: 5 },
+//         dissolved_oxygen: { min: 5, max: 9 }
+//     };
+function fetchLatestDataAndUpdate(endpoint, username, parameter, elementId) {
+    fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+            // Filter data based on the username
+            const userData = data.filter(entry => entry.username === username);
+            // Assuming the filtered data array is not empty
+            if (userData.length > 0) {
+                // Get the latest object from the filtered array
+                const latestData = userData[userData.length - 1];
+                // Get the value of the specified parameter from the latest object
+                const value = latestData[parameter];
+                // Update the content of the element with the specified ID
+                document.getElementById(elementId).textContent = value;
+
+                // Compare the fetched data with ideal ranges and show alerts
+                compareWithData(latestData);
+            } else {
+                console.error('No data available for the specified username:', username);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+}
+
+// Function to compare fetched data with ideal ranges and show alerts
+function compareWithData(data) {
+    const idealRanges = {
+        pH: { min: 6.5, max: 7.5 },
+        temperature: { min: 18, max: 28 },
+        turbidity: { min: 0, max: 5 },
+        dissolved_oxygen: { min: 5, max: 9 }
+    };
+
+    const alertsContainer = document.getElementById('alert');
+    Object.keys(data).forEach(param => {
+        const value = data[param];
+        const idealRange = idealRanges[param];
+        if (idealRange) {
+            if (value < idealRange.min) {
+                showAlert(`${param} value (${value}) is low (${value} < ${idealRange.min})`, 'blue', alertsContainer);
+            } else if (value > idealRange.max) {
+                showAlert(`${param} value (${value}) is high (${value} > ${idealRange.max})`, 'red', alertsContainer);
+            }
+        }
+    });
+}
+
+// Function to show alerts
+function showAlert(message, color, container) {
+    const alertElement = document.createElement('h3');
+    alertElement.textContent = message;
+    alertElement.style.color = color; // Set color based on parameter status
+    container.appendChild(alertElement);
+}
+
+// Call the function for each parameter
+// Assuming you have set the username variable in your HTML
+ // Replace 'exampleUsername' with the actual username variable value from your HTML
+fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'pHValue', 'phValue');
+fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'turbidity', 'turbidityValue');
+fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'temperature', 'temperatureValue');
+fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'dissolved_oxygen', 'oxygenValue'); // Assuming dissolved oxygen is represented by 'dissolved_oxygen' in your API
+
+    // Function to fetch the latest data from API
+    async function fetchData() {
+        try {
+            const response = await fetch('https://farmsync.pythonanywhere.com/api/data/');
+            const allData = await response.json();
+            // Assuming data is an array of objects where each object represents a data entry
+            // You may need to adjust this depending on the structure of your API response
+            const latestData = allData[allData.length - 1]; // Get the last data entry
+            return latestData;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
     
-    // Call the function for each parameter
-    // Assuming you have set the username variable in your HTML
-    fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'pHValue', 'phValue');
-    fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'turbidity', 'turbidityValue');
-    fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'temperature', 'temperatureValue');
-    fetchLatestDataAndUpdate('https://farmsync.pythonanywhere.com/api/data/', username, 'dissolved_oxygen', 'oxygenValue'); // Assuming dissolved oxygen is represented by 'dissolved_oxygen' in your API
+    // Function to compare fetched data with ideal ranges
+    function compareWithData(data) {
+        const alertsContainer = document.getElementById('alert');
+        Object.keys(data).forEach(param => {
+            const value = data[param];
+            const idealRange = idealRanges[param];
+            if (idealRange) {
+                if (value < idealRange.min) {
+                    showAlert(`${param} value (${value}) is low (${value} < ${idealRange.min})`, 'blue', alertsContainer);
+                    showSolution(param, 'Low', alertsContainer);
+                } else if (value > idealRange.max) {
+                    showAlert(`${param} value (${value}) is high (${value} > ${idealRange.max})`, 'red', alertsContainer);
+                    showSolution(param, 'High', alertsContainer);
+                }
+            }
+        });
+    }
     
-   
+    // Function to show alerts
+    function showAlert(message, color, container) {
+        const alertElement = document.createElement('h3');
+        alertElement.textContent = message;
+        alertElement.style.color = color; // Set color based on parameter status
+        container.appendChild(alertElement);
+    }
     
+    // Function to show solutions
+    function showSolution(param, status, container) {
+        const solutions = {
+            pH: {
+                Low: "Add lime or other pH-raising amendments to increase soil pH.",
+                High: "Use sulfur or other pH-lowering amendments to decrease soil pH."
+            },
+            temperature: {
+                Low: "Provide additional heating using greenhouse heaters or heating mats.",
+                High: "Use shading, ventilation, or evaporative cooling techniques to lower temperatures if necessary."
+            },
+            turbidity: {
+                Low: "Maintain water quality through proper filtration and regular cleaning of water sources.",
+                High: "Address the source of turbidity, such as runoff or sedimentation, and implement appropriate measures to reduce it."
+            },
+            dissolved_oxygen: {
+                Low: "Increase aeration through air stones, water pumps, or water movement to improve oxygen levels.",
+                High: "Ensure proper circulation to prevent stagnation and potential fish stress."
+            }
+        };
+    
+        const solutionElement = document.createElement('h3');
+        solutionElement.textContent = `Solution for ${param} (${status}): ${solutions[param][status]}`;
+        solutionElement.style.color = 'darkgreen'; // Set color to dark green
+        container.appendChild(solutionElement);
+    }
+    
+    // Function to initiate the process
+    async function startProcess() {
+        const data = await fetchData();
+        compareWithData(data);
+    }
+    
+    // Call the function to start the process
+    startProcess();
+    
+
     async function fetchData(username) {
         try {
             const response = await fetch('https://farmsync.pythonanywhere.com/api/data/', {

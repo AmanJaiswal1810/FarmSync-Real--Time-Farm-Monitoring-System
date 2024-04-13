@@ -14,4 +14,7 @@ urlpatterns = [
     path('result/<str:username>/', views.result, name='result'),
     path('soilresult/<str:username>/', views.soilresult, name ='soilresult'),
     path('SendEmail', views.SendEmail, name='SendEmail'),
+    path('analysis', views.display_data, name='display_data'),
+    path('cropdata/<str:username>', views.cropdata, name='cropdata'),
+    path('npk', views.npk, name='npk'),
 ]

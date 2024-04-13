@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import auth
 from .models import *
 from .models import Room
+from django.db.models import Avg
 # Create your views here.
 
 def index(request):
@@ -139,3 +140,102 @@ def SendEmail(request):
         return JsonResponse({'message': 'success'})
     else:
         return JsonResponse({'message': 'error'})
+
+def display_data(request):
+    data = IotData.objects.all()  # fetches all objects from your model
+    averages = {
+        'temperature_avg': round(data.aggregate(Avg('temperature'))['temperature__avg'] or 0, 2),
+        'pHValue_avg': round(data.aggregate(Avg('pHValue'))['pHValue__avg'] or 0, 2),
+        'turbidity_avg': round(data.aggregate(Avg('turbidity'))['turbidity__avg'] or 0, 2),
+        'dissolved_oxygen_avg': round(data.aggregate(Avg('dissolved_oxygen'))['dissolved_oxygen__avg'] or 0, 2),
+        'water_level_sensor_avg': round(data.aggregate(Avg('water_level_sensor'))['water_level_sensor__avg'] or 0, 2),
+        'moisture_sensor_avg': round(data.aggregate(Avg('moisture_sensor'))['moisture_sensor__avg'] or 0, 2),
+        'nitrogen_avg': round(data.aggregate(Avg('nitrogen'))['nitrogen__avg'] or 0, 2),
+        'phosphorous_avg': round(data.aggregate(Avg('phosphorous'))['phosphorous__avg'] or 0, 2),
+        'potassium_avg': round(data.aggregate(Avg('potassium'))['potassium__avg'] or 0, 2),
+    }
+    return render(request, 'analysis.html', {'data': data, 'averages': averages})
+
+def cropdata(request, username):
+    if request.method == 'POST':
+        farmId = request.POST.get('farmId')
+        cropType = request.POST.get('cropType')
+        location = request.POST.get('location')
+        sowingDate = request.POST.get('sowingDate')
+        harvestDate = request.POST.get('harvestDate')
+        soilType = request.POST.get('soilType')
+        # Retrieve IoT data for the given farmId
+        data = IotData.objects.filter(username=username, unique_id=farmId).order_by('-created_at').first()
+        
+        if data:
+            # Extract soil properties and sensor data
+            potassium = data.potassium
+            phosphorus = data.phosphorous
+            nitrogen = data.nitrogen
+            water_level_sensor = data.water_level_sensor
+            moisture_sensor = data.moisture_sensor
+            
+            # Initialize analysis results dictionary
+            analysis_results = {
+                'suitable_for_crop': True,
+                'deficiencies': []
+            }
+            
+            # Define standard threshold values
+            standard_thresholds = {
+                'nitrogen_min': 80,
+                'nitrogen_max': 170,
+                'potassium_min': 85,
+                'potassium_max': 170,
+                'phosphorus_min': 85,
+                'phosphorus_max': 170,
+                'moisture_min': 750,
+                'moisture_max': 930,
+                'water_level_min': 2,
+                'water_level_max': 6,
+            }
+            
+            # Crop Suitability Analysis
+            if nitrogen < standard_thresholds['nitrogen_min'] or nitrogen > standard_thresholds['nitrogen_max']:
+                analysis_results['suitable_for_crop'] = False
+                analysis_results['deficiencies'].append('Nitrogen deficiency/excess')
+            if potassium < standard_thresholds['potassium_min'] or potassium > standard_thresholds['potassium_max']:
+                analysis_results['suitable_for_crop'] = False
+                analysis_results['deficiencies'].append('Potassium deficiency/excess')
+            if phosphorus < standard_thresholds['phosphorus_min'] or phosphorus > standard_thresholds['phosphorus_max']:
+                analysis_results['suitable_for_crop'] = False
+                analysis_results['deficiencies'].append('Phosphorus deficiency/excess')
+            if moisture_sensor < standard_thresholds['moisture_min'] or moisture_sensor > standard_thresholds['moisture_max']:
+                analysis_results['suitable_for_crop'] = False
+                analysis_results['deficiencies'].append('Moisture level not suitable')
+            if water_level_sensor < standard_thresholds['water_level_min'] or water_level_sensor > standard_thresholds['water_level_max']:
+                analysis_results['suitable_for_crop'] = False
+                analysis_results['deficiencies'].append('Water level not suitable')
+            
+            # Pass analysis results to the template
+            context = {
+                'potassium': potassium,
+                'phosphorus': phosphorus,
+                'nitrogen': nitrogen,
+                'water_level_sensor': water_level_sensor,
+                'moisture_sensor': moisture_sensor,
+                'cropType': cropType,
+                'location': location,
+                'sowingDate': sowingDate,
+                'harvestDate': harvestDate,
+                'analysis_results': analysis_results
+            }
+        else:
+            # Handle case where no IoT data is found for the given farmId
+            context = {
+                'error': 'No IoT data found for the specified farm ID.'
+            }
+            print(context)
+            
+        return render(request, "crop.html", {'context':context})
+    else:
+        return render(request, "crop.html")
+        
+    
+def npk(request):
+    return render(request, "npk.html")

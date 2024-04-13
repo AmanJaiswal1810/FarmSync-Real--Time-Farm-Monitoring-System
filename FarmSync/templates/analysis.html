@@ -1,0 +1,323 @@
+{% load static %}
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Your Page</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .data-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h2>Averages:</h2>
+    <p>Temperature: {{ averages.temperature_avg }}</p>
+    <p>pH Value: {{ averages.pHValue_avg }}</p>
+    <p>Turbidity: {{ averages.turbidity_avg }}</p>
+    <p>Dissolved Oxygen: {{ averages.dissolved_oxygen_avg }}</p>
+    <p>Water Level Sensor: {{ averages.water_level_sensor_avg }}</p>
+    <p>Moisture Sensor: {{ averages.moisture_sensor_avg }}</p>
+    <p>Nitrogen: {{ averages.nitrogen_avg }}</p>
+    <p>Phosphorous: {{ averages.phosphorous_avg }}</p>
+    <p>Potassium: {{ averages.potassium_avg }}</p>
+
+    <script>
+        var dataItems = document.querySelectorAll('.data-item');
+        dataItems.forEach(function(item, index) {
+            item.addEventListener('click', function() {
+                alert('You clicked on item ' + (index + 1));
+            });
+        });
+    </script>
+</body>
+</html> {% endcomment %}
+ {% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Dashboard</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body{
+            background-color:#fef8f5;
+        }
+        .alerts{
+            display: flex;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 60px;
+        }
+        .alerts-card{
+            background-color: wheat;
+            margin-bottom: 20px;
+            padding: 25px;
+            box-sizing: border-box;
+            -webkit-column-break-inside: avoid;
+            border-radius: 5px;
+            box-shadow: 0 6px 7px -4px rgba(0,0,0,0.2);
+        }
+        .alert-title{
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="searchInput" style="display:flex; justify-content:center; margin-top: 40px">
+            <input type="text" placeholder="Enter City Name" id="searchInput" value="Bhopal"/>
+            {% comment %} <button class="btn-btn-primary" id="searchButton" type ="submit" style="width:60px; height:30px;">submit</button> {% endcomment %}
+            <button type="submit" class="btn btn-primary" id="searchButton">Submit</button>
+        </div>
+        <h2  class="my-3"> Region: </h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Soil Temperature</h5>
+                        <p class="card-text">{{ averages.temperature_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">pH Value:</h5>
+                        <p class="card-text">{{ averages.pHValue_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Turbidity:</h5>
+                        <p class="card-text">{{ averages.turbidity_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Dissolved Oxygen:</h5>
+                        <p class="card-text">{{ averages.dissolved_oxygen_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Water Level Sensor:</h5>
+                        <p class="card-text">{{ averages.water_level_sensor_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Moisture Sensor:</h5>
+                        <p class="card-text">{{ averages.moisture_sensor_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Nitrogen:</h5>
+                        <p class="card-text">{{ averages.nitrogen_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Phosphorous:</h5>
+                        <p class="card-text">{{ averages.phosphorous_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 style="color:orange;" class="card-title">Potassium:</h5>
+                        <p class="card-text">{{ averages.potassium_avg }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 style="color:orange;" class="card-title">Temperature:</h5>
+            <p class="card-text"><span class="weather" id="temperature"></span></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 style="color:orange;" class="card-title">Humidity:</h5>
+            <p class="card-text"><span class="humidity" id="humidity"></span></p>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 style="color:orange;" class="card-title">Wind Speed:</h5>
+            <p class="card-text"><span class="wind-speed" id="windSpeed"></span></p>
+        </div>
+    </div>
+</div>
+{% comment %} <div class="searchInput" style="display:flex; justify-content:center; margin: auto 400px">
+    <input type="text" placeholder="Enter City Name" id="searchInput" value="Bhopal"/>
+    <button id="searchButton" type ="submit" style="width:60px; height:30px;">submit</button>
+</div> {% endcomment %}
+        </div>
+
+        {% comment %} <div class="alerts">
+            <div class="alerts-card">
+                <h2 class="alerts-title">Alerts:</h2>
+                <div id="alert">
+                 
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alerts">
+                    <div class="alerts-card">
+                        <h2 class="alerts-title">Alerts:</h2>
+                        <div id="alert"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src ='{% static "assets/js/ana.js" %}'></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <
+    <script>
+       
+        const idealRanges = {
+            nitrogen: { min: 20, max: 50 },
+            phosphorous: { min: 10, max: 30 },
+            potassium: { min: 30, max: 60 },
+            soilMoisture: { min: 300, max: 950 },
+            waterLevel: { min: 20, max: 50 }
+        };
+
+        // Sample data in JSON format
+        const sampleData = {
+            nitrogen: 15,
+            phosphorous: 15,
+            potassium: 35,
+            soilMoisture: 900,
+            waterLevel: 45
+        };
+
+        // Function to check if a value deviates from the ideal range
+        function checkDeviation(parameter, value) {
+            const { min, max } = idealRanges[parameter];
+            return { low: value < min, high: value > max };
+        }
+
+        // Function to display alerts for deviated parameters
+        function displayAlerts(data) {
+            const alertsDiv = document.getElementById('alert');
+            alertsDiv.innerHTML = ''; // Clear previous alerts
+
+            Object.keys(data).forEach(parameter => {
+                const value = data[parameter];
+                const deviation = checkDeviation(parameter, value);
+                if (deviation.low || deviation.high) {
+                    let alertText = '';
+                    let solutionText = '';
+
+                    // Generate alert and solution text based on parameter
+                    switch (parameter) {
+                        case 'nitrogen':
+                            alertText = `${parameter} is ${deviation.low ? 'low' : 'high'}`;
+                            solutionText = deviation.low ?
+                                'Apply nitrogen-rich fertilizers such as ammonium sulfate, urea, or compost to boost nitrogen levels in the soil. Plant nitrogen-fixing cover crops like legumes (e.g., clover, peas, beans) to naturally increase soil nitrogen over time.' :
+                                'Reduce nitrogen fertilizer applications to avoid nutrient imbalances and potential environmental pollution. Implement crop rotation to utilize excess nitrogen and prevent soil depletion.';
+                            break;
+                        case 'phosphorous':
+                            alertText = `${parameter} is ${deviation.low ? 'low' : 'high'}`;
+                            solutionText = deviation.low ?
+                                'Apply phosphorus-rich fertilizers such as bone meal, rock phosphate, or phosphate rock to replenish soil phosphorus levels. Incorporate phosphorus-solubilizing bacteria or fungi into the soil to enhance phosphorus availability to plants.' :
+                                'Avoid excessive phosphorus fertilization to prevent nutrient imbalances and potential environmental runoff. Monitor soil phosphorus levels closely and adjust fertilization practices accordingly.';
+                            break;
+                        case 'potassium':
+                            alertText = `${parameter} is ${deviation.low ? 'low' : 'high'}`;
+                            solutionText = deviation.low ?
+                                'Apply potassium-rich fertilizers such as potassium sulfate, potassium chloride, or wood ash to replenish soil potassium levels. Use organic sources of potassium, such as kelp meal or banana peels, to provide a natural nutrient source.' :
+                                'Avoid excessive potassium fertilization to prevent nutrient imbalances and potential negative impacts on soil pH or other nutrient interactions. Monitor soil potassium levels and adjust fertilization practices accordingly to maintain optimal nutrient balance.';
+                            break;
+                        case 'soilMoisture':
+                            alertText = `${parameter} is ${deviation.low ? 'low' : 'high'}`;
+                            solutionText = deviation.low ?
+                                'Increase irrigation frequency or use mulch to retain soil moisture.' :
+                                'Improve soil drainage or reduce watering frequency to prevent waterlogging.';
+                            break;
+                        case 'waterLevel':
+                            alertText = `${parameter} is ${deviation.low ? 'low' : 'high'}`;
+                            solutionText = deviation.low ?
+                                'Add water through irrigation or watering systems to bring levels within the desired range.' :
+                                'Implement drainage systems or reduce water input to lower water levels if necessary.';
+                            break;
+                        default:
+                            break;
+                    }
+
+                    // Create alert element
+                    const alertElement = document.createElement('h3');
+                    alertElement.textContent = alertText;
+                    // Set text color based on deviation
+                    alertElement.style.color = deviation.low ? 'blue' : 'red';
+
+                    // Create solution element
+                    const solutionElement = document.createElement('p');
+                    solutionElement.textContent = `Solution: ${solutionText}`;
+                    solutionElement.style.color = 'darkgreen';
+
+                    // Append both elements to alertsDiv
+                    alertsDiv.appendChild(alertElement);
+                    alertsDiv.appendChild(solutionElement);
+                }
+            });
+
+            if (alertsDiv.children.length === 0) {
+                const noAlertElement = document.createElement('h3');
+                noAlertElement.textContent = "Nothing to worry everything is under control.";
+                alertsDiv.appendChild(noAlertElement);
+                noAlertElement.style.color = 'green';
+            }
+        }
+
+        // Call the function to display alerts based on sample data
+        displayAlerts(sampleData);
+    </script>
+    
+    
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src = "{% static 'assets/js/translate.js' %}"></script>
+</body>
+</html>
